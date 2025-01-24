@@ -4,11 +4,41 @@ import React from "react";
 export default function App() {
   // je object
   const diepvries = [
-    { lade: 1, voeding: "worst", aantal: "4", gewicht: "200g", tijd: "5" },
-    { lade: 1, voeding: "broccoli", aantal: "-", gewicht: "500g", tijd: "5" },
-    { lade: 1, voeding: "biefstuk", aantal: "2", gewicht: "400g", tijd: "5" },
-    { lade: 2, voeding: "hamburgers", aantal: "6", gewicht: "-", tijd: "5" },
-    { lade: 3, voeding: "frieten", aantal: "1", gewicht: "1Kg", tijd: "8" },
+    {
+      lade: 1,
+      voeding: "worst",
+      aantal: "4",
+      gewicht: "200g",
+      datumIngevoerd: new Date("2025-01-01"),
+    },
+    {
+      lade: 1,
+      voeding: "broccoli",
+      aantal: "-",
+      gewicht: "500g",
+      datumIngevoerd: new Date("2025-01-02"),
+    },
+    {
+      lade: 1,
+      voeding: "biefstuk",
+      aantal: "2",
+      gewicht: "400g",
+      datumIngevoerd: new Date("2025-01-03"),
+    },
+    {
+      lade: 2,
+      voeding: "hamburgers",
+      aantal: "6",
+      gewicht: "-",
+      datumIngevoerd: new Date("2024-09-25"),
+    },
+    {
+      lade: 3,
+      voeding: "frieten",
+      aantal: "1",
+      gewicht: "1Kg",
+      datumIngevoerd: new Date("2024-01-05"),
+    },
   ];
   // functie is de lade maakt
   const toonVoorraadInlade = (ladeNummer) => {
@@ -27,7 +57,7 @@ export default function App() {
             ) => (
               <li key={index}>
                 {product.voeding} - Aantal: {product.aantal} - Gewicht:{" "}
-                {product.gewicht} - Tijd {product.tijd} Dagen
+                {product.gewicht} - Tijd {berekenTijd(product.datumIngevoerd)}
               </li>
             )
           )}
@@ -35,6 +65,14 @@ export default function App() {
       </div>
     );
   };
+  // berekent de tijd hoelang het al in de frigo zit
+  const berekenTijd = (datumIngevoerd) => {
+    const currentDate = new Date();
+    const duration = currentDate - datumIngevoerd;
+    const days = Math.floor(duration / (1000 * 60 * 60 * 24));
+    return `${days} days`;
+  };
+
   // gaalt alle nummers van de laden die er zijn
   const getLadenNummers = (diepvries) => {
     const ladenNummers = [];
